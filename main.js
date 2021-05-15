@@ -1,44 +1,100 @@
-var canvas = new fabric.Canvas('myCanvas');
 
-player_x = 10;
-player_y = 10;
+var canvas = new fabric.Canvas("myCanvas");
 
-block_image_width = 30;
-block_image_height = 30;
+playerX = 10;
+playerY = 10;
 
-var player_object= "";
-var block_image_object= "";
+blockImageWidth = 30;
+blockImageHeight = 30;
 
-function player_update()
-{
-	fabric.Image.fromURL("https://i.postimg.cc/zDwfFdYY/player.png", function(Img) {
-	player_object = Img;
+var playerobject = "";
+var blockobject = "";
 
-	player_object.scaleToWidth(150);
-	player_object.scaleToHeight(140);
-	player_object.set({
-	top:player_y,
-	left:player_x
-	});
-	canvas.add(player_object);
+function playerUpdate() {
+    fabric.Image.fromURL("player.png", function (Img) {
+        playerobject = Img;
+        playerobject.scaleToWidth(150);
+        playerobject.scaleToHeight(140);
+        playerobject.set({
+            top: playerY,
+            left: playerX
+        });
+        canvas.add(playerobject);
 
-	});
+    });
+}
+function newImage(getImage) {
+    fabric.Image.fromURL(getImage, function (Img) {
+        blockobject = Img;
+        blockobject.scaleToWidth(blockImageWidth);
+        blockobject.scaleToHeight(blockImageHeight);
+        blockobject.set({
+            top: playerY,
+            left: playerX
+        });
+        canvas.add(blockobject);
+
+    });
 }
 
-function new_image(get_image)
-{
-	fabric.Image.fromURL(get_image, function(Img) {
-	block_image_object = Img;
+window.addEventListener("keydown", MyKeydown);
+function MyKeydown(e) {
+    keyPressed = e.keyCode;
+    if (e.shiftKey == true && keyPressed == '80') {
+        blockImageWidth = blockImageWidth + 10;
+        blockImageHeight = blockImageHeight + 10;
+        document.getElementById("current_width").innerHTML = blockImageWidth;
+        document.getElementById("current_height").innerHTML = blockImageHeight;
+    }
+    if (e.shiftKey == true && keyPressed == '77') {
+        blockImageWidth = blockImageWidth - 10;
+        blockImageHeight = blockImageHeight - 10;
+        document.getElementById("current_width").innerHTML = blockImageWidth;
+        document.getElementById("current_height").innerHTML = blockImageHeight;
+    }
+    if (keyPressed == '37') {
+        left();
 
-	block_image_object.scaleToWidth(block_image_width);
-	block_image_object.scaleToHeight(block_image_height);
-	block_image_object.set({
-	top:player_y,
-	left:player_x
-	});
-	canvas.add(block_image_object);
+    }
 
-	});
+    if (keyPressed == '38') {
+        up();
 
+    }
+
+    if (keyPressed == '39') {
+        right();
+
+    }
+
+    if (keyPressed == '40') {
+        down();
+
+    }
+    if (keyPressed == '66') {
+        newImage('hulk_body.png');
+        console.log("hulk body")
+    }
+
+    if (keyPressed == '76') {
+        newImage('ironman_legs.png');
+        console.log("ironman legs")
+    }
+
+    if (keyPressed == '84') {
+        newImage('thor_right_hand.png');
+        console.log("thor_hand")
+    }
+
+    if (keyPressed == '70') {
+        newImage('ironman_face.png');
+        console.log("ironman face")
+    }
+
+    if (keyPressed == '67') {
+        newImage('captain_america_left_hand.png');
+        console.log("captain_america_hand")
+    }
+    
 }
 
